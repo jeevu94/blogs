@@ -1,0 +1,8 @@
+{% extends 'layouts/base.html' %} {% load static %} {%block title%} Sign Up {%endblock%}
+{% block content %}
+
+{{ blog.title|title }} <br />
+{{ blog.description }} <br />
+<br>
+Written By - {{ blog.author.full_name }} <br />
+{% endblock %}

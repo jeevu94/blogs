@@ -1,13 +1,16 @@
-from django.contrib.auth.decorators import login_required
 from django.urls import path
-from django.views.generic import TemplateView
+
+from blog.views import BlogsView, CreateBlogView, DetailBlogView, UpdateBlogView
 
 app_name = "blog"
 
 urlpatterns = [
     path(
         "",
-        login_required(TemplateView.as_view(template_name="homepage.html")),
+        BlogsView.as_view(),
         name="homepage_view",
     ),
+    path("blogs/new", CreateBlogView.as_view(), name="create_blog_view"),
+    path("blogs/update/<str:slug>", UpdateBlogView.as_view(), name="update_blog_view"),
+    path("blogs/<str:slug>", DetailBlogView.as_view(), name="blog_detail_view"),
 ]
