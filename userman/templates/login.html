@@ -1,0 +1,14 @@
+{% extends 'layouts/base.html' %} {% load static %} {%block title%} Login {%endblock%}
+{% block content %}
+
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+    {% include 'includes/form_errors.html' %}
+
+    <button type="submit" class="btn btn-primary">Login</button>
+</form>
+
+{% endblock %}
