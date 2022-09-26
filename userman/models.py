@@ -45,3 +45,8 @@ class User(PermissionsMixin, AbstractBaseUser, BaseModel):
         Return the first_name plus the last_name, with a space in between.
         """
         return f"{self.first_name} {self.last_name}".strip()
+
+    def can_access_admin_panel(self):
+        """Check if user can access admin panel."""
+
+        return self.role == UserRole.admin

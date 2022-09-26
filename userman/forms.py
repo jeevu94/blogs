@@ -20,6 +20,7 @@ class SignUpForm(AppModelForm):
             "password",
         ]
         model = get_user_model()
+        widgets = {"password": forms.PasswordInput}
 
     def clean_password(self):
         """Password validations."""

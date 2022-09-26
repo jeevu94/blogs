@@ -2,11 +2,12 @@ import contextlib
 
 from django.conf import settings
 from django.contrib.auth import REDIRECT_FIELD_NAME
-from django.contrib.auth.mixins import AccessMixin
+from django.contrib.auth.mixins import AccessMixin, LoginRequiredMixin
 from django.core.exceptions import ImproperlyConfigured
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views.generic.edit import FormMixin, FormView
+from django.views.generic import DetailView, ListView
+from django.views.generic.edit import CreateView, FormMixin, FormView, UpdateView
 from werkzeug.exceptions import NotFound  # noqa
 
 
@@ -147,3 +148,57 @@ class AppLogoutRequiredMixin(AccessMixin):
         if request.user and request.user.is_authenticated:
             return redirect(reverse_lazy(settings.LOGIN_REDIRECT_URL))
         return super().dispatch(request, *args, **kwargs)
+
+
+class AppLoginRequiredMixin(LoginRequiredMixin):
+    """Mixin that allows the user to access only after he has logged in."""
+
+    pass
+
+
+class AppAdminTypeOnlyAllowedMixin(AccessMixin):
+    """Only allows the app admin to access the view."""
+
+    def dispatch(self, request, *args, **kwargs):
+        user = request.user
+
+        if user and user.is_authenticated and user.can_access_admin_panel():
+            return super().dispatch(request, *args, **kwargs)
+        return redirect(reverse_lazy(settings.LOGIN_URL))
+
+
+class AppDetailView(AppViewMixin, DetailView):
+    """The apps default Detail view for implementing common stuff."""
+
+    pass
+
+
+class AppListView(AppViewMixin, ListView):
+    """
+    The apps default List view for implementing common stuff. By default all the list
+    views will be paginated and will have filtering option enabled.
+    """
+
+    pass
+
+
+class AppCreateView(AppFormMixin, CreateView):
+    """The apps default create view for implementing common stuff."""
+
+    success_url = "."
+
+
+class AppUpdateView(AppFormMixin, UpdateView):
+    """The apps default update view for implementing common stuff."""
+
+    success_url = "."
+    queryset = None
+    form_class = None
+
+    def __init__(self, *args, **kwargs):
+        """Overridden to set queryset dynamically if not set."""
+
+        if not self.queryset and self.form_class:
+            self.queryset = self.form_class.Meta.model.objects.all()
+
+        super().__init__(*args, **kwargs)
