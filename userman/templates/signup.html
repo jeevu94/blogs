@@ -1,0 +1,16 @@
+{% extends 'layouts/base.html' %} {% load static %} {%block title%} Sign Up {%endblock%}
+{% block content %}
+
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+    {% include 'includes/form_errors.html' %}
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+    <p>Have an account? <a href="{% url 'userman:user_login_page_view' %}"> Click here</a> to Login</p>
+</form>
+
+{% endblock %}
