@@ -42,8 +42,12 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # custom apps
     "userman",
     "blog",
+    # TPA
+    "crispy_forms",
+    "crispy_bootstrap5",
 ]
 
 MIDDLEWARE = [
@@ -139,3 +143,6 @@ APPEND_SLASH = True
 LOGIN_REDIRECT_URL = "blog:homepage_view"
 LOGIN_URL = "userman:user_login_page_view"
 LOGOUT_REDIRECT_URL = "userman:user_login_page_view"
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
