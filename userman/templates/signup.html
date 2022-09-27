@@ -1,5 +1,6 @@
 {% extends 'layouts/base.html' %}
 {% load static %}
+{% load i18n %}
 {% load crispy_forms_tags %}
 
 {%block title%} Sign Up {%endblock%}
@@ -29,8 +30,9 @@
 
     <input type="submit" value="Submit" class="btn btn-primary">
 
-    <p>Have an account? <a href="{% url 'userman:user_login_page_view' %}"> Click
-        here</a> to Login</p>
+    <p>{% trans "Have an account?" %}<a href="{% url 'userman:user_login_page_view' %}">
+        {% trans "Click here" %}
+    </a>{% trans "to Login" %}</p>
 </form>
 
 {% endblock %}

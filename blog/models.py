@@ -2,6 +2,8 @@ from django.contrib.auth import get_user_model
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
+from tinymce.models import HTMLField
 
 from utils.helpers import random_n_token
 from utils.managers import BaseObjectManagerQuerySet
@@ -13,9 +15,9 @@ from utils.models import BaseModel
 class Blog(BaseModel):
     """Blogs model"""
 
-    title = models.CharField(max_length=255)
-    slug = models.CharField(max_length=255, blank=True)
-    description = models.TextField()
+    title = models.CharField(_("title"), max_length=255)
+    slug = models.CharField(_("slug"), max_length=255, blank=True)
+    description = HTMLField(_("description"))
     author = models.ForeignKey(
         get_user_model(), related_name="blogs", on_delete=models.CASCADE
     )

@@ -1,8 +1,26 @@
-{% extends 'layouts/base.html' %} {% load static %} {%block title%} Sign Up {%endblock%}
-{% block content %}
+{% extends 'layouts/base.html' %}
+{% load i18n %}
+{% load static %}
+{%block title%} Sign Up {%endblock%}
 
-{{ blog.title|title }} <br />
-{{ blog.description }} <br />
+{% block content %}
+<nav class="navbar navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'blog:homepage_view' %}">
+        <i class="fa-solid fa-arrow-left"></i>
+    </a>
+    <div class="d-flex">
+        <a class="navbar-brand btn btn-warning" href="{% url 'blog:update_blog_view' blog.slug %}">
+            <i class="fa-solid fa-pen-to-square"></i>
+        </a>
+    </div>
+  </div>
+</nav>
+
+{{ blog.title|title|safe }}
+<br /><br>
+{{ blog.description|safe }} <br />
+
 <br>
-Written By - {{ blog.author.full_name }} <br />
+Author - {{ blog.author.full_name }} <br />
 {% endblock %}
