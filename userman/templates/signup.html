@@ -1,16 +1,36 @@
-{% extends 'layouts/base.html' %} {% load static %} {%block title%} Sign Up {%endblock%}
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{%block title%} Sign Up {%endblock%}
 {% block content %}
 
 
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
 
-    {{ form.as_p }}
+    <div class="row">
+        <div class="col-md-6">
+            {{ form.first_name|as_crispy_field }}
+        </div>
+        <div class="col-md-6">
+            {{ form.last_name|as_crispy_field }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            {{ form.email|as_crispy_field }}
+        </div>
+        <div class="col-md-6">
+            {{ form.password|as_crispy_field }}
+        </div>
+    </div>
     {% include 'includes/form_errors.html' %}
 
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <input type="submit" value="Submit" class="btn btn-primary">
 
-    <p>Have an account? <a href="{% url 'userman:user_login_page_view' %}"> Click here</a> to Login</p>
+    <p>Have an account? <a href="{% url 'userman:user_login_page_view' %}"> Click
+        here</a> to Login</p>
 </form>
 
 {% endblock %}
