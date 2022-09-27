@@ -13,11 +13,27 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
+from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 from django.urls import include, path
+from django.utils.translation import gettext_lazy as _
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
-    path("", include("userman.urls")),
-    path("", include("blog.urls")),
+    path(_("admin/"), admin.site.urls),
+    path("", include("userman.urls", namespace="users")),
+    path("", include("blog.urls", namespace="blogs")),
+    path("tinymce/", include("tinymce.urls")),
+    path("i18n/", include("django.conf.urls.i18n")),
 ]
+
+urlpatterns += i18n_patterns(
+    path("", include("blog.urls")),
+    path("", include("userman.urls")),
+    path("tinymce/", include("tinymce.urls")),
+)
+
+if "rosetta" in settings.INSTALLED_APPS:
+    urlpatterns += [
+        path("rosetta/", include("rosetta.urls")),
+    ]

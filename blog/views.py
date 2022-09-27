@@ -37,7 +37,9 @@ class CreateBlogView(AppAdminTypeOnlyAllowedMixin, AppCreateView):
         self.object = form.save(commit=False)
         self.object.author = self.request.user
         self.object.save()
-        return HttpResponseRedirect(self.get_success_url())
+        return HttpResponseRedirect(
+            reverse("blog:blog_detail_view", args=[self.object.slug])
+        )
 
     def get_form_kwargs(self, *args, **kwargs):
         kwargs = super().get_form_kwargs()

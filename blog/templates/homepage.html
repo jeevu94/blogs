@@ -1,14 +1,18 @@
-{% extends 'layouts/base.html' %} {% load static %} {%block title%} Sign Up {%endblock%}
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% load i18n %}
+{%block title%} Sign Up {%endblock%}
+
 {% block content %}
 
 <table class="table text-center">
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Title</th>
-      <th scope="col">Description</th>
-      <th scope="col">Author</th>
-      <th scope="col">Actions</th>
+      <th scope="col">{% trans "Title" %}</th>
+      <th scope="col">{% trans "Description" %}</th>
+      <th scope="col">{% trans "Author" %}</th>
+      <th scope="col" width="20%">{% trans "Actions" %}</th>
     </tr>
   </thead>
   <tbody>
@@ -16,13 +20,18 @@
     {% for blog in blogs %}
     <tr>
         <th>{{ forloop.counter }}</th>
-        <td>{{ blog.title|title }}</td>
-        <td>{{ blog.description|truncatechars:20  }}</td>
+        <td>{{ blog.title|title|safe }}</td>
+        <td>{{ blog.description|truncatechars:20|safe  }}</td>
         <td>{{ blog.author.full_name }}</td>
         <td>
-            <a href="{% url 'blog:blog_detail_view' blog.slug %}">View</a> <br />
-            <a href="{% url 'blog:update_blog_view' blog.slug %}">Edit</a> <br />
-
+            <a type="button" class="btn btn-primary" href="{% url 'blog:blog_detail_view' blog.slug %}">
+                <i class="fa-solid fa-eye"></i>
+            </a>
+            {% if request.user.can_access_admin_panel %}
+            <a type="button" class="btn btn-warning" href="{% url 'blog:update_blog_view' blog.slug %}">
+                <i class="fa-solid fa-pen-to-square"></i>
+            </a>
+            {% endif %}
         </td>
     </tr>
     {% endfor %}

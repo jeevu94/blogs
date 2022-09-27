@@ -1,5 +1,6 @@
 {% extends 'layouts/base.html' %}
 {% load static %}
+{% load i18n %}
 {% load crispy_forms_tags %}
 
 {%block title%} Login {%endblock%}
@@ -18,8 +19,10 @@
     </div>
     {% include 'includes/form_errors.html' %}
 
-    <p>Don't have an account? <a href="{% url 'userman:user_signup_page_view' %}"> Click
-    here</a> to Sign Up</p>
+
+    <p>{% trans "Don't have an account?" %}
+        <a href="{% url 'userman:user_signup_page_view' %}">
+            {% trans "Click here" %}</a> {% trans "to Sign Up" %}</p>
 
     <input type="submit" value="Submit" class="btn btn-primary">
 </form>

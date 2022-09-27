@@ -12,6 +12,10 @@ def app_clean_password(password):
 
 
 class SignUpForm(AppModelForm):
+    password = forms.CharField(
+        widget=forms.PasswordInput, max_length=100, required=True
+    )
+
     class Meta(AppModelForm.Meta):
         fields = [
             "first_name",
@@ -20,7 +24,6 @@ class SignUpForm(AppModelForm):
             "password",
         ]
         model = get_user_model()
-        widgets = {"password": forms.PasswordInput}
 
     def clean_password(self):
         """Password validations."""
