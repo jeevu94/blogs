@@ -10,9 +10,11 @@
         <i class="fa-solid fa-arrow-left"></i>
     </a>
     <div class="d-flex">
+        {% if request.user.can_access_admin_panel %}
         <a class="navbar-brand btn btn-warning" href="{% url 'blog:update_blog_view' blog.slug %}">
             <i class="fa-solid fa-pen-to-square"></i>
         </a>
+        {% endif %}
     </div>
   </div>
 </nav>
