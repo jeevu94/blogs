@@ -21,6 +21,7 @@ class Blog(BaseModel):
     author = models.ForeignKey(
         get_user_model(), related_name="blogs", on_delete=models.CASCADE
     )
+    cover_image = models.ImageField(upload_to="blog-images/", blank=True, null=True)
 
     objects = BaseObjectManagerQuerySet.as_manager()
 
