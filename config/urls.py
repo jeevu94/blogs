@@ -31,7 +31,6 @@ urlpatterns = [
 urlpatterns += i18n_patterns(
     path("", include("blog.urls")),
     path("", include("userman.urls")),
-    path("tinymce/", include("tinymce.urls")),
 )
 
 if "rosetta" in settings.INSTALLED_APPS:
