@@ -16,7 +16,9 @@
     </div>
   </div>
 </nav>
-
+{% if blog.cover_image %}
+<img src="{{ blog.cover_image.url }}" alt="cover photo" width="100%" height="300">
+{% endif %}
 {{ blog.title|title|safe }}
 <br /><br>
 {{ blog.description|safe }} <br />

@@ -7,6 +7,7 @@ class BlogForm(AppModelForm):
     class Meta(AppModelForm.Meta):
         fields = [
             "title",
+            "cover_image",
             "description",
         ]
         model = Blog
