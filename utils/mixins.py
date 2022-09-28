@@ -86,7 +86,7 @@ class AppViewMixin:
 
         if getattr(self, "object", None):
             data["object_name"] = self.object.__str__()
-
+        data["lang"] = self.request.LANGUAGE_CODE[0:2]
         return data
 
 
