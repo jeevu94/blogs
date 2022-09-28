@@ -1,5 +1,6 @@
 {% extends 'layouts/base.html' %}
 {% load static %}
+{% load i18n %}
 {% load crispy_forms_tags %}
 
 {% block title %} Write Blog {% endblock %}
@@ -23,8 +24,16 @@
 
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
+    {{ form.cover_image|as_crispy_field }}
 
-    {{ form|crispy }}
+    <h3>{% trans "English" %}</h3> <br>
+    {{ form.title|as_crispy_field }}
+    {{ form.description|as_crispy_field }}
+    <br>
+    <h3>{% trans "Tamil" %}</h3> <br>
+    {{ form.ta_title|as_crispy_field }}
+    {{ form.ta_description|as_crispy_field }}
+
     {% include 'includes/form_errors.html' %}
 
     <button type="submit" class="btn btn-primary">Save</button>
@@ -32,7 +41,7 @@
 
 <script>
     tinyMCE.init({
-      selector: "#id_description",
+      selector: "#id_description, #id_ta_description",
     });
 </script>
 

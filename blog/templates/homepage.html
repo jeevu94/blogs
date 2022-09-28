@@ -20,8 +20,13 @@
     {% for blog in blogs %}
     <tr>
         <th>{{ forloop.counter }}</th>
-        <td>{{ blog.title|title|safe }}</td>
-        <td>{{ blog.description|truncatechars:20|safe  }}</td>
+        {% if lang == 'en' %}
+            <td>{{ blog.title|title|safe }}</td>
+            <td>{{ blog.description|truncatechars:20|safe  }}</td>
+        {% else %}
+            <td>{{ blog.ta_title|title|safe }}</td>
+            <td>{{ blog.ta_description|truncatechars:20|safe  }}</td>
+        {% endif %}
         <td>{{ blog.author.full_name }}</td>
         <td>
             <a type="button" class="btn btn-primary" href="{% url 'blog:blog_detail_view' blog.slug %}">
