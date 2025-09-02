@@ -8,3 +8,6 @@ Steps to Run the app
 3. Inside virtual env run python manage.py -r requirements.txt
 4. Run python manage.py migrate.
 5. Run python manage.py runserver.
+
+
+<!-- Security scan triggered at 2025-09-02 05:01:33 -->
